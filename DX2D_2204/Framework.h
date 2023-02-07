@@ -122,6 +122,8 @@ using namespace Utility;
 #include "Algorithm/Node.h"
 #include "Algorithm/Heap.h"
 #include "Algorithm/AStar.h"
+#include "Algorithm/BSP.h"
+#include "Algorithm/BSPNode.h"
 
 //JPS
 #include "Algorithm/JPSNode.h"

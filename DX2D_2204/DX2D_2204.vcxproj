@@ -151,6 +151,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Algorithm\AStar.h" />
+    <ClInclude Include="Algorithm\BSP.h" />
+    <ClInclude Include="Algorithm\BSPNode.h" />
     <ClInclude Include="Algorithm\Dijkstra.h" />
     <ClInclude Include="Algorithm\DNode.h" />
     <ClInclude Include="Algorithm\Heap.h" />
@@ -215,6 +217,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Algorithm\AStar.cpp" />
+    <ClCompile Include="Algorithm\BSP.cpp" />
+    <ClCompile Include="Algorithm\BSPNode.cpp" />
     <ClCompile Include="Algorithm\Dijkstra.cpp" />
     <ClCompile Include="Algorithm\DNode.cpp" />
     <ClCompile Include="Algorithm\Heap.cpp" />
