@@ -2,6 +2,7 @@
 
 #include "Scenes/TankScene.h"
 #include "Scenes/DijkstraScene.h"
+#include "Scenes/BSPScene.h"
 
 GameManager::GameManager()
 {

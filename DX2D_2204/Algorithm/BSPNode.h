@@ -11,9 +11,9 @@ public:
 	void Partitioning();
 	void SetPath();
 
+	vector<BSPNode*> GetBottomChilds();
 	BSPNode* Parent() { return parent; }
 	vector<BSPNode*> Childs() { return childs; }
-	vector<BSPNode*> GetBottomChilds();
 	RectCollider* Area() { return area; }
 
 private:

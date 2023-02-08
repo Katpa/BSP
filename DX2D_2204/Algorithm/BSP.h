@@ -29,6 +29,6 @@ public:
 private:
 	vector<Quad*> rooms;
 
-	BSPNode* head = nullptr;
+	BSPNode* head;
 	queue<BSPNode*> curLevelNodes;
 };

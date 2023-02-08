@@ -38,6 +38,16 @@ void BSP::Render()
 
 void BSP::Generate()
 {
+	int levelSize = curLevelNodes.size();
 
+	for (int i = 0; i < levelSize; i++)
+	{
+		BSPNode* tmpNode = curLevelNodes.front();
+		curLevelNodes.pop();
 
+		tmpNode->Partitioning();
+
+		for (BSPNode* child : tmpNode->Childs())
+			curLevelNodes.push(child);
+	}
 }
