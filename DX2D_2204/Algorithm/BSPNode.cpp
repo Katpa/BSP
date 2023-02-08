@@ -1,7 +1,7 @@
 #include "Framework.h"
 
-BSPNode::BSPNode(Vector2 areaSize, Vector2 areaPos, BSPNode* parent = nullptr)
-	:parent(parent)
+BSPNode::BSPNode(Vector2 areaSize, Vector2 areaPos, BSPNode* parent)
+	:parent(parent), type(PartitionType::NONE)
 {
 	area = new RectCollider(areaSize);
 	area->Position() = areaPos;
@@ -30,20 +30,27 @@ void BSPNode::Render()
 void BSPNode::Partitioning()
 {
 	float firstRate, firstMove, secondRate, secondMove;
-	int randNum = Random(0, 1);
-	if (randNum)
+	int randNum = Random(0, 3);
+	if (randNum == 2)
 	{
 		firstRate = 0.4f;
 		firstMove = 0.3f;
 		secondRate = 0.6f;
 		secondMove = 0.2f;
 	}
-	else
+	else if(randNum == 1)
 	{
 		firstRate = 0.6f;
 		firstMove = 0.2f;
 		secondRate = 0.4f;
 		secondMove = 0.3f;
+	}
+	else
+	{
+		firstRate = 0.5f;
+		firstMove = 0.25f;
+		secondRate = 0.5f;
+		secondMove = 0.25f;
 	}
 
 	Vector2 size = area->Size();
@@ -62,15 +69,19 @@ void BSPNode::Partitioning()
 
 		secondNode[0] = size * Vector2(secondRate, 1.0f);
 		secondNode[1] = area->GlobalPosition() + Vector2(size.x * secondMove, 0);
+
+		type = PartitionType::VERTICAL;
 	}
 	else
 	{
 		//세로분할
 		firstNode[0] = size * Vector2(1.0f, firstRate);
-		firstNode[1] = area->GlobalPosition() - Vector2(0, size.x * firstMove);
+		firstNode[1] = area->GlobalPosition() - Vector2(0, size.y * firstMove);
 
 		secondNode[0] = size * Vector2(1.0f, secondRate);
-		secondNode[1] = area->GlobalPosition() + Vector2(0, size.x * secondMove);
+		secondNode[1] = area->GlobalPosition() + Vector2(0, size.y * secondMove);
+
+		type = PartitionType::HORIZENTAL;
 	}
 
 	firstChild = new BSPNode(firstNode[0], firstNode[1], this);

@@ -8,8 +8,9 @@ GameManager::GameManager()
 {
 	Create();
 
-	scene = new TankScene();
+	//scene = new TankScene();
 	//scene = new DijkstraScene();
+	scene = new BSPScene();
 }
 
 GameManager::~GameManager()

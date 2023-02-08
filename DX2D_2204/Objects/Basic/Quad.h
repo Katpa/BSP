@@ -8,8 +8,11 @@ public:
 	~Quad();
 
 	void Render();
+	void SetRender();
 
 	void SetTexture(Texture* texture) { this->texture = texture; }
+
+	void SetVertexShader(wstring file);
 	void SetPixelShader(wstring file);
 
 	Vector2 Size() { return texture->GetSize(); }

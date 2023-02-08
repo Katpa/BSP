@@ -3,7 +3,7 @@
 
 BSPScene::BSPScene()
 {
-	Vector2 tmpWorldMapSize;
+	Vector2 tmpWorldMapSize = { CENTER_X, CENTER_Y };
 	bsp = new BSP(tmpWorldMapSize);
 }
 
@@ -14,9 +14,10 @@ BSPScene::~BSPScene()
 
 void BSPScene::Update()
 {
-	bsp->Generate();
+	bsp->Update();
 }
 
 void BSPScene::Render()
 {
+	bsp->Render();
 }

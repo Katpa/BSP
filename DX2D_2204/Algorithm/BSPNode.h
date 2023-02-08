@@ -2,6 +2,12 @@
 
 class BSPNode
 {
+private:
+	enum class PartitionType
+	{
+		NONE, VERTICAL, HORIZENTAL
+	};
+
 public:
 	BSPNode(Vector2 areaSize, Vector2 areaPos, BSPNode* parent = nullptr);
 	~BSPNode();
@@ -21,4 +27,5 @@ private:
 	vector<BSPNode*> childs;
 
 	RectCollider* area;
+	PartitionType type;
 };

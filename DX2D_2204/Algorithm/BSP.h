@@ -11,8 +11,36 @@
 /// 3. 저장한 이진 트리 구조에 따라 길(복도)를 연결한다.
 /// ----------------------------------------------------------
 
+/// ----------------------------------------------------------
+/// 진행 모드 2가지로 개발
+/// 1. 수동모드
+///		- Q 누르면 수동모드로 진입
+///			- 1 누르면 분할
+///			- 2 누르면 방생성
+///			- 3 누르면 경로 연결
+/// 2. 자동모드
+///		- W 누르면 자동모드로 진입
+///			- 주기적으로 각 단계를 진행한다
+/// ----------------------------------------------------------
+
 class BSP
 {
+private:
+	enum class Mode
+	{
+		NONE, MANUAL, AUTO
+	};
+
+	struct InstanceData
+	{
+		Matrix transform;
+		Vector2 maxFrame;
+		Vector2 curFrame;
+		Float4 color;
+	};
+
+	const float INTERVAL = 3.0f;
+
 public:
 	BSP(Vector2 worldSize);
 	~BSP();
@@ -20,15 +48,28 @@ public:
 	void Update();
 	void Render();
 
-	void Generate();
-
-	void Partioning();
-
 	void Save();
 
 private:
-	vector<Quad*> rooms;
+	void Partitioning();
+	void Generate();
+	void LinkPath();
+
+	void NoneMode();
+	void ManualMode();
+	void AutoMode();
+
+private:
+	vector<Quad*> grids;
+	Quad* gridTexture;
+	vector<Vector2> poses;
+	vector<InstanceData> instances;
+	VertexBuffer* instanceBuffer;
 
 	BSPNode* head;
 	queue<BSPNode*> curLevelNodes;
+
+	Mode mode = Mode::NONE;
+
+	float curTime;
 };

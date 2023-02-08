@@ -396,5 +396,7 @@
     <FxCompile Include="Shaders\PixelMulti.hlsl" />
     <FxCompile Include="Shaders\PixelProgressBar.hlsl" />
     <FxCompile Include="Shaders\PixelEffect.hlsl" />
+    <FxCompile Include="Shaders\PixelInstancing.hlsl" />
+    <FxCompile Include="Shaders\VertexInstancing.hlsl" />
   </ItemGroup>
 </Project>

@@ -66,6 +66,25 @@ void Quad::Render()
 	DC->DrawIndexed(indices.size(), 0, 0);
 }
 
+void Quad::SetRender()
+{
+	colorBuffer->SetPS(0);
+
+	if (texture)
+		texture->PSSet();
+
+	vertexBuffer->Set();
+	indexBuffer->Set();
+
+	vertexShader->Set();
+	pixelShader->Set();
+}
+
+void Quad::SetVertexShader(wstring file)
+{
+	vertexShader = Shader::AddVS(file);
+}
+
 void Quad::SetPixelShader(wstring file)
 {
 	pixelShader = Shader::AddPS(file);
