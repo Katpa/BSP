@@ -70,6 +70,7 @@ private:
 
 	Mode mode = Mode::NONE;
 
+	Vector2 worldIndex;
 	float curTime;
 
 

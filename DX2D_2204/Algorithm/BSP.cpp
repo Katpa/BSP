@@ -11,8 +11,8 @@ BSP::BSP(Vector2 worldSize)
 	gridTexture = new Quad(L"Textures/tiles.png", Vector2(), Vector2(1.0f / 4.0f, 1.0f));
 	gridTexture->SetVertexShader(L"Shaders/VertexInstancing.hlsl");
 	gridTexture->SetPixelShader(L"Shaders/PixelInstancing.hlsl");
-	Vector2 amount = worldSize * 0.1f;
-	UINT gridCnt = amount.x * amount.y;
+	worldIndex = worldSize * 0.1f;
+	UINT gridCnt = worldIndex.x * worldIndex.y;
 
 	float startPosX = CENTER_X - worldSize.x * 0.5f;
 	float startPosY = CENTER_Y - worldSize.y * 0.5f;
@@ -24,8 +24,8 @@ BSP::BSP(Vector2 worldSize)
 	{
 		Transform transform;
 
-		transform.Position().x = startPosX + 10.0f * (i % (int)amount.x) + 5.0f;
-		transform.Position().y = startPosY + 10.0f * (i / (int)amount.x) + 5.0f;
+		transform.Position().x = startPosX + 10.0f * (i % (int)worldIndex.x) + 5.0f;
+		transform.Position().y = startPosY + 10.0f * (i / (int)worldIndex.x) + 5.0f;
 		poses[i] = transform.Position();
 
 		transform.UpdateWorld();
@@ -115,10 +115,13 @@ void BSP::Generate()
 
 		Vector2 areaSize = tmpNode->Area()->Size();
 		Vector2 areaPos = tmpNode->Area()->GlobalPosition();
-		Vector2 roomSize = Vector2(Random(areaSize.x * 0.6f, areaSize.x * 0.8f), Random(areaSize.y * 0.6f, areaSize.y * 0.8f));
+		Vector2 roomSize = Vector2(Random(areaSize.x * 0.5f, areaSize.x * 0.8f), Random(areaSize.y * 0.5f, areaSize.y * 0.8f));
 
 		Vector2 lb = areaPos - roomSize * 0.5f;
 		Vector2 rt = areaPos + roomSize * 0.5f;
+
+		UINT start = 0;
+		UINT end = 0;
 
 		for (int i = 0; i < instances.size(); i++)
 		{
@@ -126,10 +129,17 @@ void BSP::Generate()
 				poses[i].x <= rt.x && poses[i].y <= rt.y)
 			{
 				instances[i].curFrame.x = 1;
+				
+				end = i;
+				if (start == 0) start = i;
 			}
 		}
 
-		curLevelNodes.push(tmpNode);
+		tmpNode->Start() = start;
+		tmpNode->End() = end;
+
+		if(i & 1)
+			curLevelNodes.push(tmpNode->Parent());
 	}
 
 	instanceBuffer->Update(instances.data(), instances.size());
@@ -143,8 +153,6 @@ void BSP::Generate()
 //--------------------------------------------------------------------------
 void BSP::LinkPath()
 {
-	return;
-
 	int levelSize = curLevelNodes.size();
 
 	for (int i = 0; i < levelSize; i++)
@@ -152,7 +160,13 @@ void BSP::LinkPath()
 		BSPNode* tmpNode = curLevelNodes.front();
 		curLevelNodes.pop();
 
-		tmpNode->SetPath();
+		vector<UINT> pathVec;
+		tmpNode->SetPath(worldIndex.x, pathVec);
+
+		for (UINT path : pathVec)
+		{
+			instances[path].curFrame.x = 2;
+		}
 
 		if (i & 1)
 			curLevelNodes.push(tmpNode->Parent());

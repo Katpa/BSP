@@ -92,21 +92,21 @@ void BSPNode::Partitioning()
 }
 
 //---------------------------------------------------
-// Code: void SetPath()
-// Desc: 자식노드끼리 길을 만드는 함수
+// Code: void SetPath(UINT widthIndex, vector<UINT>& pathVec)
+// Desc: 자식노드끼리 길에 대한 인덱스를 pathVec에 담아내는 함수
 //---------------------------------------------------
-void BSPNode::SetPath()
+void BSPNode::SetPath(UINT widthIndex, vector<UINT>& pathVec)
 {
 	vector<BSPNode*> leftNode;
 	vector<BSPNode*> rightNode;
 
-	leftNode = childs[0]->GetBottomChilds();
-	rightNode = childs[1]->GetBottomChilds();
+	leftNode = childs[0]->GetLeafChilds();
+	rightNode = childs[1]->GetLeafChilds();
 
 	float minDist = D3D10_FLOAT32_MAX;
 
-	BSPNode* minLeft;
-	BSPNode* minRight;
+	BSPNode* minLeft = nullptr;
+	BSPNode* minRight = nullptr;
 
 	// 방을 갖고 있는 리프 노드들 중에서 가장 거리가 가까운 두 노드를 구한다.
 	// left = 좌측에 놓이는 자식노드 / right = 우측에 놓이는 자식노드
@@ -128,11 +128,77 @@ void BSPNode::SetPath()
 		}
 	}
 
+	UINT leftBottom[2] = { minLeft->Start(), minRight->Start() };
+	UINT rightUp[2] = { minLeft->End(), minRight->End() };
+	UINT roomWidth[2] = { rightUp[0] % widthIndex - leftBottom[0] % widthIndex, rightUp[1] % widthIndex - leftBottom[1] % widthIndex };
+
+#define UP 0
+#define DOWN 1
+#define LEFT 2
+#define RIGHT 3
+	UINT direction[4] = { widthIndex, widthIndex * -1, -1, 1 };
+
+	vector<UINT> left, right;
+	vector<UINT> overlapNums;
+	UINT distance;
+
 	if (type == PartitionType::VERTICAL)
 	{
 		//가로분할
 		//좌, 우
-		
+		int i = 1;
+		while (true)
+		{
+			UINT tmp = leftBottom[0] + direction[UP] * i;
+			if (tmp > rightUp[0]) break;
+
+			left.push_back(tmp / widthIndex);
+			i++;
+		}
+
+		i = 1;
+		while (true)
+		{
+			UINT tmp = leftBottom[1] + direction[UP] * i;
+			if (tmp > rightUp[1]) break;
+
+			right.push_back(tmp / widthIndex);
+			i++;
+		}
+
+		for (UINT numL : left)
+		{
+			for (UINT numR : right)
+			{
+				if (numL == numR)
+				{
+					overlapNums.push_back(numL);
+					break;
+				}
+			}
+		}
+
+		distance = leftBottom[1] % widthIndex - rightUp[0] % widthIndex - 1;
+
+		if (distance & 1)
+		{
+			//꺾임이 있는 복도
+
+		}
+		else
+		{
+			//직선형 복도
+			UINT height = Random((int)*overlapNums.begin(), (int)*(overlapNums.end() - 1) + 1);
+			UINT pathPoint = height * widthIndex + rightUp[0] % widthIndex + 1;
+			UINT endPoint = height * widthIndex + leftBottom[1] % widthIndex;
+
+			while (true)
+			{
+				if (pathPoint == endPoint) break;
+				pathVec.push_back(pathPoint);
+				pathPoint += direction[RIGHT];
+			}
+		}
 	}
 	else
 	{
@@ -140,30 +206,29 @@ void BSPNode::SetPath()
 		//상, 하
 
 	}
-	// 제일 가까운 노드 찾았고 여기서 어떤 식으로 이을까??
-	// 복도 만드는 규칙이 뭐가 있을까
-	// 제일 간단한 건 중앙끼리 연결하는 것
-	// 복도 구조는 어떻게 짤래??
-	// 그래 그러면 이렇게 해보자
-	// 1. 일단 이 두 노드들은 자식 관계이기 때문에 어떤 분할을 당한 것이다.
-	// 그러므로 그 분할의 종류에 따라 복도 시작 방향과 끝 방향이 정해지는데
-	// 가로분할은 상/하향으로 세로분할은 좌/우향으로 한다.
+
+#undef UP
+#undef DOWN
+#undef LEFT
+#undef RIGHT
 }
 
 //---------------------------------------------------
 // Code: vector<BSPNode*> GetBottomChilds()
 // Desc: 최하단 노드들을 재귀적으로 찾아 반환하는 함수
 //---------------------------------------------------
-vector<BSPNode*> BSPNode::GetBottomChilds()
+vector<BSPNode*> BSPNode::GetLeafChilds()
 {
 	vector<BSPNode*> childNodes;
+
+	if (childs.empty()) childNodes.push_back(this);
 
 	for (BSPNode* node : childs)
 	{
 		vector<BSPNode*> tmp;
 		tmp = node->Childs();
 
-		if (tmp.size() > 0) tmp = node->GetBottomChilds();
+		if (tmp.size() > 0) tmp = node->GetLeafChilds();
 		
 		for (BSPNode* child : tmp)
 			childNodes.push_back(child);

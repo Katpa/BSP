@@ -15,12 +15,15 @@ public:
 	void Render();
 
 	void Partitioning();
-	void SetPath();
+	void SetPath(UINT widthIndex, vector<UINT>& pathVec);
 
-	vector<BSPNode*> GetBottomChilds();
+	vector<BSPNode*> GetLeafChilds();
 	BSPNode* Parent() { return parent; }
 	vector<BSPNode*> Childs() { return childs; }
 	RectCollider* Area() { return area; }
+
+	UINT& Start() { return startIndex; }
+	UINT& End() { return endIndex; }
 
 private:
 	BSPNode* parent;
@@ -28,4 +31,6 @@ private:
 
 	RectCollider* area;
 	PartitionType type;
+
+	UINT startIndex = 0, endIndex = 0;
 };

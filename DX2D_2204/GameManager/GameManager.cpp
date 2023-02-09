@@ -6,6 +6,7 @@
 
 GameManager::GameManager()
 {
+	srand((unsigned int)time(nullptr));
 	Create();
 
 	//scene = new TankScene();
