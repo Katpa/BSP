@@ -5,7 +5,7 @@ class BSPNode
 private:
 	enum class PartitionType
 	{
-		NONE, VERTICAL, HORIZENTAL
+		NONE = 0, VERTICAL = 1, HORIZENTAL = 2
 	};
 
 public:

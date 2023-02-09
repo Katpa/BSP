@@ -204,6 +204,9 @@
     <ClInclude Include="Scenes\BSPScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Algorithm\BSPRoom.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX2D_2204.cpp">
@@ -366,6 +369,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\BSPScene.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Algorithm\BSPRoom.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

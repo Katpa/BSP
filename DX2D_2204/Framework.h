@@ -122,6 +122,7 @@ using namespace Utility;
 #include "Algorithm/Node.h"
 #include "Algorithm/Heap.h"
 #include "Algorithm/AStar.h"
+#include "Algorithm/BSPRoom.h"
 #include "Algorithm/BSPNode.h"
 #include "Algorithm/BSP.h"
 
