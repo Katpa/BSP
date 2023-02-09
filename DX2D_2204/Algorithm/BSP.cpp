@@ -42,11 +42,6 @@ BSP::BSP(Vector2 worldSize)
 
 BSP::~BSP()
 {
-	for (Quad*& grid : grids)
-		delete grid;
-
-	grids.clear();
-
 	delete head;
 	delete instanceBuffer;
 	delete gridTexture;
@@ -70,9 +65,9 @@ void BSP::Update()
 
 void BSP::Render()
 {
-	//instanceBuffer->Set(1);
-	//gridTexture->SetRender();
-	//DC->DrawIndexedInstanced(6, instances.size(), 0, 0, 0);
+	instanceBuffer->Set(1);
+	gridTexture->SetRender();
+	DC->DrawIndexedInstanced(6, instances.size(), 0, 0, 0);
 
 	for (int i = 0; i < curLevelNodes.size(); i++)
 	{
@@ -109,6 +104,8 @@ void BSP::Partitioning()
 //--------------------------------------------------------------------------
 void BSP::Generate()
 {
+	if (isGenerated) return;
+
 	int levelSize = curLevelNodes.size();
 
 	for (int i = 0; i < levelSize; i++)
@@ -116,11 +113,9 @@ void BSP::Generate()
 		BSPNode* tmpNode = curLevelNodes.front();
 		curLevelNodes.pop();
 
-		//tmpNode 영역 안에 임의의 넓이의 방 만들기
-		//임의 좌표 4개 찍어서 만들어버릴까?? 아니지 2개면 될것같은데
 		Vector2 areaSize = tmpNode->Area()->Size();
 		Vector2 areaPos = tmpNode->Area()->GlobalPosition();
-		Vector2 roomSize = Vector2(Random(areaSize.x * 0.3f, areaSize.x * 0.8f), Random(areaSize.y * 0.3f, areaSize.y * 0.8f));
+		Vector2 roomSize = Vector2(Random(areaSize.x * 0.6f, areaSize.x * 0.8f), Random(areaSize.y * 0.6f, areaSize.y * 0.8f));
 
 		Vector2 lb = areaPos - roomSize * 0.5f;
 		Vector2 rt = areaPos + roomSize * 0.5f;
@@ -133,9 +128,13 @@ void BSP::Generate()
 				instances[i].curFrame.x = 1;
 			}
 		}
+
+		curLevelNodes.push(tmpNode);
 	}
 
 	instanceBuffer->Update(instances.data(), instances.size());
+
+	isGenerated = true;
 }
 
 //--------------------------------------------------------------------------

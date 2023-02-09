@@ -36,7 +36,7 @@ private:
 		Matrix transform;
 		Vector2 maxFrame;
 		Vector2 curFrame;
-		Float4 color;
+		//Float4 color;
 	};
 
 	const float INTERVAL = 3.0f;
@@ -60,7 +60,6 @@ private:
 	void AutoMode();
 
 private:
-	vector<Quad*> grids;
 	Quad* gridTexture;
 	vector<Vector2> poses;
 	vector<InstanceData> instances;
@@ -72,4 +71,7 @@ private:
 	Mode mode = Mode::NONE;
 
 	float curTime;
+
+
+	bool isGenerated = false;
 };

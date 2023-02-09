@@ -1,6 +1,9 @@
-c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\dx2d_2204.pch
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\vc143.pdb
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\vc143.idb
+c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\imguifiledialog.obj
+c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\vertexshader.obj
+c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\bsp.obj
+c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\dx2d_2204.pch
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\framework.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\camera.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\rectcollider.obj
@@ -17,9 +20,9 @@ c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\jpsheap.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\jpsbitarray.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\jps.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\heap.obj
-c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\dnode.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\dijkstra.obj
-c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\bsp.obj
+c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\dnode.obj
+c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\bspnode.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\astar.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\animobject.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\gamemanager.obj
@@ -31,7 +34,6 @@ c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\binarywriter.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\binaryreader.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\audio.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\device.obj
-c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\vertexshader.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\shader.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\pixelshader.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\texture.obj
@@ -53,8 +55,6 @@ c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\progressbar.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\effectmanager.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\effect.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\button.obj
-c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\bspnode.obj
-c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\imguifiledialog.obj
 c:\users\sbauser\desktop\projects\bsp\x64\debug\pixeleffect.cso
 c:\users\sbauser\desktop\projects\bsp\x64\debug\pixelinstancing.cso
 c:\users\sbauser\desktop\projects\bsp\x64\debug\pixelmulti.cso
@@ -68,8 +68,8 @@ c:\users\sbauser\desktop\projects\bsp\x64\debug\pixeluv.cso
 c:\users\sbauser\desktop\projects\bsp\x64\debug\tutorial.cso
 c:\users\sbauser\desktop\projects\bsp\x64\debug\vertexcollider.cso
 c:\users\sbauser\desktop\projects\bsp\x64\debug\vertexcolor.cso
-c:\users\sbauser\desktop\projects\bsp\x64\debug\vertexinstancing.cso
 c:\users\sbauser\desktop\projects\bsp\x64\debug\vertexuv.cso
+c:\users\sbauser\desktop\projects\bsp\x64\debug\vertexinstancing.cso
 c:\users\sbauser\desktop\projects\bsp\x64\debug\dx2d_2204.lib
 c:\users\sbauser\desktop\projects\bsp\x64\debug\dx2d_2204.exp
 c:\users\sbauser\desktop\projects\bsp\x64\debug\dx2d_2204.exe

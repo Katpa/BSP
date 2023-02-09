@@ -7,7 +7,7 @@ Collider::Collider()
 
 	worldBuffer = new MatrixBuffer();
 	colorBuffer = new ColorBuffer();
-	colorBuffer->Set(0, 1, 0);
+	colorBuffer->Set(1, 0, 1);
 }
 
 Collider::~Collider()

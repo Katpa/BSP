@@ -36,7 +36,7 @@ PixelInput VS(VertexInput input)
 {
     PixelInput output;
     
-    output.pos = mul(input.pos, input.transform);
+    output.pos = mul(input.pos, input.transform);    
     output.pos = mul(output.pos, view);
     output.pos = mul(output.pos, projection);
     
