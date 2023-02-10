@@ -6,12 +6,14 @@ BSP::BSP(Vector2 worldSize)
 	head = new BSPNode(worldSize, Vector2(CENTER_X, CENTER_Y));
 	curLevelNodes.push(head);
 
-	//여기서 타일갯수 정해주고 인스턴스 리사이즈해준다.
 	//한 칸당 10*10
 	gridTexture = new Quad(L"Textures/tiles.png", Vector2(), Vector2(1.0f / 4.0f, 1.0f));
 	gridTexture->SetVertexShader(L"Shaders/VertexInstancing.hlsl");
 	gridTexture->SetPixelShader(L"Shaders/PixelInstancing.hlsl");
+
+	//타일 텍스처 사이즈가 달라지면 변경해야합니다.
 	worldIndex = worldSize * 0.1f;
+
 	UINT gridCnt = worldIndex.x * worldIndex.y;
 
 	float startPosX = CENTER_X - worldSize.x * 0.5f;
@@ -61,6 +63,9 @@ void BSP::Update()
 		AutoMode();
 		break;
 	}
+
+	if (KEY_DOWN('E'))
+		renderArea = !renderArea;
 }
 
 void BSP::Render()
@@ -69,12 +74,14 @@ void BSP::Render()
 	gridTexture->SetRender();
 	DC->DrawIndexedInstanced(6, instances.size(), 0, 0, 0);
 
-	for (int i = 0; i < curLevelNodes.size(); i++)
+	if (!renderArea) return;
+
+	for (int i = 0; i < renderNodes.size(); i++)
 	{
-		BSPNode* tmp = curLevelNodes.front();
+		BSPNode* tmp = renderNodes.front();
 		tmp->Render();
-		curLevelNodes.pop();
-		curLevelNodes.push(tmp);
+		renderNodes.pop();
+		renderNodes.push(tmp);
 	}
 }
 
@@ -96,6 +103,8 @@ void BSP::Partitioning()
 		for (BSPNode* child : tmpNode->Childs())
 			curLevelNodes.push(child);
 	}
+
+	renderNodes = curLevelNodes;
 }
 
 //--------------------------------------------------------------------------
@@ -152,28 +161,35 @@ void BSP::Generate()
 //--------------------------------------------------------------------------
 void BSP::LinkPath()
 {
-	int levelSize = curLevelNodes.size();
-
-	for (int i = 0; i < levelSize; i++)
+	while (!curLevelNodes.empty())
 	{
-		BSPNode* tmpNode = curLevelNodes.front();
-		curLevelNodes.pop();
+		int levelSize = curLevelNodes.size();
 
-		vector<UINT> pathVec;
-		tmpNode->SetPath(worldIndex.x, pathVec);
-
-		for (UINT path : pathVec)
+		for (int i = 0; i < levelSize; i++)
 		{
-			instances[path].curFrame.x = 2;
-		}
+			BSPNode* tmpNode = curLevelNodes.front();
+			curLevelNodes.pop();
 
-		if (i & 1)
-			curLevelNodes.push(tmpNode->Parent());
+			vector<UINT> pathVec;
+			tmpNode->SetPath(worldIndex.x, pathVec);
+
+			for (UINT path : pathVec)
+			{
+				instances[path].curFrame.x = 2;
+			}
+
+			if (i & 1)
+				curLevelNodes.push(tmpNode->Parent());
+		}
 	}
 
 	instanceBuffer->Update(instances.data(), instances.size());
 }
 
+//--------------------------------------------------------------------------
+// Code: void NoneMode()
+// Desc: 모드를 미지정한 초기 옵션 선택 상태 루프 함수
+//--------------------------------------------------------------------------
 void BSP::NoneMode()
 {
 	if (KEY_DOWN('Q'))
@@ -183,6 +199,10 @@ void BSP::NoneMode()
 		mode = Mode::AUTO;
 }
 
+//--------------------------------------------------------------------------
+// Code: void ManualMode()
+// Desc: 수동모드 루프 함수
+//--------------------------------------------------------------------------
 void BSP::ManualMode()
 {
 	if (KEY_DOWN('1'))
@@ -196,6 +216,10 @@ void BSP::ManualMode()
 	}
 }
 
+//--------------------------------------------------------------------------
+// Code: void AutoMode()
+// Desc: 자동모드 루프 함수
+//--------------------------------------------------------------------------
 void BSP::AutoMode()
 {
 	curTime += DELTA;
@@ -203,5 +227,16 @@ void BSP::AutoMode()
 	if (curTime < INTERVAL) return;
 	curTime -= INTERVAL;
 
+	if (autoNum < AUTO_PARTITION)
+		Partitioning();
+	else if (autoNum == AUTO_PARTITION)
+		Generate();
+	else if (autoNum == AUTO_PARTITION + 1)
+		LinkPath();
+	else if (autoNum == AUTO_PARTITION + 2)
+		renderArea = false;
+	else
+		mode = Mode::NONE;
 
+	autoNum++;
 }

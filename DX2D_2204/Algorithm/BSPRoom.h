@@ -20,6 +20,7 @@ private:
 	UINT Distance(BSPRoom& room, DIR direction);
 
 	vector<DIR> Pathing(UINT startIndex, UINT endIndex, UINT distance, UINT partitionType);
+	void SetIndeies(UINT& startIndex, UINT& endIndex, BSPRoom& room, UINT partitionType, DIR direction);
 
 public:
 	UINT width;

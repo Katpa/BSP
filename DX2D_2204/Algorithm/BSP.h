@@ -39,7 +39,8 @@ private:
 		//Float4 color;
 	};
 
-	const float INTERVAL = 3.0f;
+	const float INTERVAL = 2.0f;
+	const UINT AUTO_PARTITION = 4;
 
 public:
 	BSP(Vector2 worldSize);
@@ -67,12 +68,14 @@ private:
 
 	BSPNode* head;
 	queue<BSPNode*> curLevelNodes;
+	queue<BSPNode*> renderNodes;
 
 	Mode mode = Mode::NONE;
 
 	Vector2 worldIndex;
 	float curTime;
-
+	UINT autoNum = 0;
 
 	bool isGenerated = false;
+	bool renderArea = true;
 };

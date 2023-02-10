@@ -150,18 +150,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Algorithm\AStar.h" />
     <ClInclude Include="Algorithm\BSP.h" />
     <ClInclude Include="Algorithm\BSPNode.h" />
     <ClInclude Include="Algorithm\BSPRoom.h" />
-    <ClInclude Include="Algorithm\Dijkstra.h" />
-    <ClInclude Include="Algorithm\DNode.h" />
-    <ClInclude Include="Algorithm\Heap.h" />
-    <ClInclude Include="Algorithm\JPS.h" />
-    <ClInclude Include="Algorithm\JPSBitArray.h" />
-    <ClInclude Include="Algorithm\JPSHeap.h" />
-    <ClInclude Include="Algorithm\JPSNode.h" />
-    <ClInclude Include="Algorithm\Node.h" />
     <ClInclude Include="DX2D_2204.h" />
     <ClInclude Include="Framework.h" />
     <ClInclude Include="Framework\Buffer\ConstBuffer.h" />
@@ -206,30 +197,15 @@
     <ClInclude Include="Objects\Basic\EffectManager.h" />
     <ClInclude Include="Objects\Basic\ProgressBar.h" />
     <ClInclude Include="Objects\Basic\Quad.h" />
-    <ClInclude Include="Objects\Game\GameTileMap.h" />
-    <ClInclude Include="Objects\Game\Tank.h" />
-    <ClInclude Include="Objects\Game\TileMap.h" />
-    <ClInclude Include="Objects\Game\Tile.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scenes\BSPScene.h" />
-    <ClInclude Include="Scenes\DijkstraScene.h" />
     <ClInclude Include="Scenes\Scene.h" />
-    <ClInclude Include="Scenes\TankScene.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Algorithm\AStar.cpp" />
     <ClCompile Include="Algorithm\BSP.cpp" />
     <ClCompile Include="Algorithm\BSPNode.cpp" />
     <ClCompile Include="Algorithm\BSPRoom.cpp" />
-    <ClCompile Include="Algorithm\Dijkstra.cpp" />
-    <ClCompile Include="Algorithm\DNode.cpp" />
-    <ClCompile Include="Algorithm\Heap.cpp" />
-    <ClCompile Include="Algorithm\JPS.cpp" />
-    <ClCompile Include="Algorithm\JPSBitArray.cpp" />
-    <ClCompile Include="Algorithm\JPSHeap.cpp" />
-    <ClCompile Include="Algorithm\JPSNode.cpp" />
-    <ClCompile Include="Algorithm\Node.cpp" />
     <ClCompile Include="DX2D_2204.cpp" />
     <ClCompile Include="Framework.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -272,13 +248,7 @@
     <ClCompile Include="Objects\Basic\EffectManager.cpp" />
     <ClCompile Include="Objects\Basic\ProgressBar.cpp" />
     <ClCompile Include="Objects\Basic\Quad.cpp" />
-    <ClCompile Include="Objects\Game\GameTileMap.cpp" />
-    <ClCompile Include="Objects\Game\Tank.cpp" />
-    <ClCompile Include="Objects\Game\Tile.cpp" />
-    <ClCompile Include="Objects\Game\TileMap.cpp" />
     <ClCompile Include="Scenes\BSPScene.cpp" />
-    <ClCompile Include="Scenes\DijkstraScene.cpp" />
-    <ClCompile Include="Scenes\TankScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX2D_2204.rc" />

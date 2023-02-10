@@ -16,6 +16,10 @@ BSPRoom::~BSPRoom()
 {
 }
 
+//----------------------------------------------------------------------------
+// Code: vector<UINT> Link(BSPRoom& room, UINT partitionType)
+// Desc: 방과 방 사이에 경로(혹은 복도)를 배치하는 함수
+//----------------------------------------------------------------------------
 vector<UINT> BSPRoom::Link(BSPRoom& room, UINT partitionType)
 {
 	isReverse = false;
@@ -25,28 +29,9 @@ vector<UINT> BSPRoom::Link(BSPRoom& room, UINT partitionType)
 	DIR direction = Direction(room, partitionType);
 	UINT distance = Distance(room, direction);
 	
-	//startPoint는 최대한 좌측 하단에 가까운 방
 	UINT startIndex = 0, endIndex = 0;
 
-	switch (direction)
-	{
-	case BSPRoom::DIR::UP:
-		startIndex = Random((int)indexLT, (int)indexRT + 1);
-		endIndex = Random((int)room.indexLT, (int)room.indexRT + 1);
-		break;
-	case BSPRoom::DIR::DOWN:
-		startIndex = Random((int)indexLB, (int)indexRB + 1);
-		endIndex = Random((int)room.indexLB, (int)room.indexRB + 1);
-		break;
-	case BSPRoom::DIR::RIGHT:
-		startIndex = Random((int)bottom, (int)top + 1) * width + right;
-		endIndex = Random((int)room.bottom, (int)room.top + 1) * width + left;
-		break;
-	case BSPRoom::DIR::LEFT:
-		startIndex = Random((int)bottom, (int)top + 1) * width + left;
-		endIndex = Random((int)room.bottom, (int)room.top + 1) * width + right;
-		break;
-	}
+	SetIndeies(startIndex, endIndex, room, partitionType, direction);
 
 	if (direction == DIR::DOWN || direction == DIR::LEFT)
 	{
@@ -101,6 +86,10 @@ vector<UINT> BSPRoom::Link(BSPRoom& room, UINT partitionType)
 	return output;
 }
 
+//----------------------------------------------------------------------------
+// Code: BSPRoom::DIR Direction(BSPRoom& room, UINT partitionType)
+// Desc: 출발하는 방 기준에서 대상 방이 어느 방향에 있는지 확인하는 함수
+//----------------------------------------------------------------------------
 BSPRoom::DIR BSPRoom::Direction(BSPRoom& room, UINT partitionType)
 {
 	if (partitionType == 1)
@@ -115,6 +104,10 @@ BSPRoom::DIR BSPRoom::Direction(BSPRoom& room, UINT partitionType)
 	}
 }
 
+//----------------------------------------------------------------------------
+// Code: UINT Distance(BSPRoom& room, DIR direction)
+// Desc: 출발방과 도착방의 거리를 계산하는 함수
+//----------------------------------------------------------------------------
 UINT BSPRoom::Distance(BSPRoom& room, DIR direction)
 {
 	UINT output = 0;
@@ -139,6 +132,10 @@ UINT BSPRoom::Distance(BSPRoom& room, DIR direction)
 	return output;
 }
 
+//----------------------------------------------------------------------------
+// Code: vector<BSPRoom::DIR> Pathing(UINT startIndex, UINT endIndex, UINT distance, UINT partitionType)
+// Desc: 출발방에서 도착방으로 가는 경로를 지정하는 함수
+//----------------------------------------------------------------------------
 vector<BSPRoom::DIR> BSPRoom::Pathing(UINT startIndex, UINT endIndex, UINT distance, UINT partitionType)
 {
 	vector<DIR> path;
@@ -165,14 +162,14 @@ vector<BSPRoom::DIR> BSPRoom::Pathing(UINT startIndex, UINT endIndex, UINT dista
 
 					if (cur < target)
 					{
-						for (; cur <= target; cur++)
+						for (; cur < target; cur++)
 						{
 							path.push_back(DIR::UP);
 						}
 					}
 					else
 					{
-						for (; cur >= target; cur--)
+						for (; cur > target; cur--)
 						{
 							path.push_back(DIR::DOWN);
 						}
@@ -200,14 +197,14 @@ vector<BSPRoom::DIR> BSPRoom::Pathing(UINT startIndex, UINT endIndex, UINT dista
 
 					if (cur < target)
 					{
-						for (; cur <= target; cur++)
+						for (; cur < target; cur++)
 						{
 							path.push_back(DIR::RIGHT);
 						}
 					}
 					else
 					{
-						for (; cur >= target; cur--)
+						for (; cur > target; cur--)
 						{
 							path.push_back(DIR::LEFT);
 						}
@@ -233,4 +230,63 @@ vector<BSPRoom::DIR> BSPRoom::Pathing(UINT startIndex, UINT endIndex, UINT dista
 	}
 
 	return path;
+}
+
+//----------------------------------------------------------------------------
+// Code: void SetIndeies(UINT& startIndex, UINT& endIndex, BSPRoom& room, UINT partitionType, DIR direction)
+// Desc: 출발지점과 도착지점을 중복되는 범위 내에서 임의의 지점들을 결정하는 함수
+//----------------------------------------------------------------------------
+void BSPRoom::SetIndeies(UINT& startIndex, UINT& endIndex, BSPRoom& room, UINT partitionType, DIR direction)
+{
+	int start[2];
+	int end[2];
+	int minNum = 0, maxNum = 0;
+
+	if (partitionType == 1)
+	{
+		start[0] = bottom;
+		start[1] = top;
+		end[0] = room.bottom;
+		end[1] = room.top;
+	}
+	else
+	{
+		start[0] = left;
+		start[1] = right;
+		end[0] = room.left;
+		end[1] = room.right;
+	}
+
+	if (start[0] < end[0])
+		minNum = end[0];
+	else
+		minNum = start[0];
+
+	if (start[1] < end[1])
+		maxNum = start[1];
+	else
+		maxNum = end[1];
+
+	startIndex = Random(minNum, maxNum + 1);
+	endIndex = Random(minNum, maxNum + 1);
+
+	switch (direction)
+	{
+	case BSPRoom::DIR::UP:
+		startIndex += top * width;
+		endIndex += room.bottom * width;
+		break;
+	case BSPRoom::DIR::DOWN:
+		startIndex += bottom * width;
+		endIndex += room.top * width;
+		break;
+	case BSPRoom::DIR::RIGHT:
+		startIndex = startIndex * width + right;
+		endIndex = endIndex * width + left;
+		break;
+	case BSPRoom::DIR::LEFT:
+		startIndex = startIndex * width + left;
+		endIndex = endIndex * width + right;
+		break;
+	}
 }

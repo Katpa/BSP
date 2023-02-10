@@ -117,20 +117,10 @@ using namespace Utility;
 #include "Framework/Environment/Camera.h"
 #include "Framework/Environment/Environment.h"
 
-#include "Algorithm/DNode.h"
-#include "Algorithm/Dijkstra.h"
-#include "Algorithm/Node.h"
-#include "Algorithm/Heap.h"
-#include "Algorithm/AStar.h"
+//BSP
 #include "Algorithm/BSPRoom.h"
 #include "Algorithm/BSPNode.h"
 #include "Algorithm/BSP.h"
-
-//JPS
-#include "Algorithm/JPSNode.h"
-#include "Algorithm/JPSHeap.h"
-#include "Algorithm/JPSBitArray.h"
-#include "Algorithm/JPS.h"
 
 //Object Header
 #include "Objects/Basic/Quad.h"
@@ -139,11 +129,6 @@ using namespace Utility;
 #include "Objects/Basic/EffectManager.h"
 #include "Objects/Basic/ProgressBar.h"
 #include "Objects/Basic/Button.h"
-
-#include "Objects/Game/Tile.h"
-#include "Objects/Game/TileMap.h"
-#include "Objects/Game/GameTileMap.h"
-#include "Objects/Game/Tank.h"
 
 //Scene
 #include "Scenes/Scene.h"

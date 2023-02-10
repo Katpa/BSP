@@ -1,7 +1,5 @@
 #include "Framework.h"
 
-#include "Scenes/TankScene.h"
-#include "Scenes/DijkstraScene.h"
 #include "Scenes/BSPScene.h"
 
 GameManager::GameManager()
@@ -9,8 +7,6 @@ GameManager::GameManager()
 	srand((unsigned int)time(nullptr));
 	Create();
 
-	//scene = new TankScene();
-	//scene = new DijkstraScene();
 	scene = new BSPScene();
 }
 
