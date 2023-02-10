@@ -13,7 +13,7 @@ public:
 	~BSPRoom();
 
 	//partitionType -> 1 = Vertical / 2 = Horizental
-	vector<int> Link(BSPRoom& room, UINT partitionType);
+	vector<UINT> Link(BSPRoom& room, UINT partitionType);
 
 private:
 	BSPRoom::DIR Direction(BSPRoom& room, UINT partitionType);

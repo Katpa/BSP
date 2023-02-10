@@ -135,8 +135,7 @@ void BSP::Generate()
 			}
 		}
 
-		tmpNode->Start() = start;
-		tmpNode->End() = end;
+		tmpNode->SetRoom(start, end, (UINT)worldIndex.x);
 
 		if(i & 1)
 			curLevelNodes.push(tmpNode->Parent());

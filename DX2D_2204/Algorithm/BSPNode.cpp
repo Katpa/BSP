@@ -1,7 +1,7 @@
 #include "Framework.h"
 
 BSPNode::BSPNode(Vector2 areaSize, Vector2 areaPos, BSPNode* parent)
-	:parent(parent), type(PartitionType::NONE)
+	:parent(parent), type(PartitionType::NONE), room(nullptr)
 {
 	area = new RectCollider(areaSize);
 	area->Position() = areaPos;
@@ -16,6 +16,9 @@ BSPNode::~BSPNode()
 		delete child;
 
 	childs.clear();
+
+	if (room)
+		delete room;
 }
 
 void BSPNode::Render()
@@ -128,89 +131,14 @@ void BSPNode::SetPath(UINT widthIndex, vector<UINT>& pathVec)
 		}
 	}
 
-	UINT leftBottom[2] = { minLeft->Start(), minRight->Start() };
-	UINT rightUp[2] = { minLeft->End(), minRight->End() };
-	UINT roomWidth[2] = { rightUp[0] % widthIndex - leftBottom[0] % widthIndex, rightUp[1] % widthIndex - leftBottom[1] % widthIndex };
+	pathVec = minLeft->Room()->Link(*minRight->Room(), (UINT)type);
+}
 
-#define UP 0
-#define DOWN 1
-#define LEFT 2
-#define RIGHT 3
-	UINT direction[4] = { widthIndex, widthIndex * -1, -1, 1 };
+void BSPNode::SetRoom(UINT leftBottom, UINT rightTop, UINT worldWidth)
+{
+	if (room) return;
 
-	vector<UINT> left, right;
-	vector<UINT> overlapNums;
-	UINT distance;
-
-	if (type == PartitionType::VERTICAL)
-	{
-		//가로분할
-		//좌, 우
-		int i = 1;
-		while (true)
-		{
-			UINT tmp = leftBottom[0] + direction[UP] * i;
-			if (tmp > rightUp[0]) break;
-
-			left.push_back(tmp / widthIndex);
-			i++;
-		}
-
-		i = 1;
-		while (true)
-		{
-			UINT tmp = leftBottom[1] + direction[UP] * i;
-			if (tmp > rightUp[1]) break;
-
-			right.push_back(tmp / widthIndex);
-			i++;
-		}
-
-		for (UINT numL : left)
-		{
-			for (UINT numR : right)
-			{
-				if (numL == numR)
-				{
-					overlapNums.push_back(numL);
-					break;
-				}
-			}
-		}
-
-		distance = leftBottom[1] % widthIndex - rightUp[0] % widthIndex - 1;
-
-		if (distance & 1)
-		{
-			//꺾임이 있는 복도
-
-		}
-		else
-		{
-			//직선형 복도
-			UINT height = Random((int)*overlapNums.begin(), (int)*(overlapNums.end() - 1) + 1);
-			UINT pathPoint = height * widthIndex + rightUp[0] % widthIndex + 1;
-			UINT endPoint = height * widthIndex + leftBottom[1] % widthIndex;
-
-			while (true)
-			{
-				if (pathPoint == endPoint) break;
-				pathVec.push_back(pathPoint);
-				pathPoint += direction[RIGHT];
-			}
-		}
-	}
-	else
-	{
-		//세로분할
-		//상, 하
-
-	}
-
-#undef UP
-#undef DOWN
-#undef LEFT
-#undef RIGHT
+	room = new BSPRoom(leftBottom, rightTop, worldWidth);
 }
 
 //---------------------------------------------------
@@ -221,17 +149,18 @@ vector<BSPNode*> BSPNode::GetLeafChilds()
 {
 	vector<BSPNode*> childNodes;
 
-	if (childs.empty()) childNodes.push_back(this);
-
-	for (BSPNode* node : childs)
+	if (room != nullptr)
 	{
-		vector<BSPNode*> tmp;
-		tmp = node->Childs();
-
-		if (tmp.size() > 0) tmp = node->GetLeafChilds();
-		
-		for (BSPNode* child : tmp)
-			childNodes.push_back(child);
+		childNodes.push_back(this);
+	}
+	else
+	{
+		for (BSPNode* node : childs)
+		{
+			vector<BSPNode*> tmp = node->GetLeafChilds();
+			for (BSPNode* n : tmp)
+				childNodes.push_back(n);
+		}
 	}
 
 	return childNodes;

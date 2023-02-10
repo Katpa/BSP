@@ -2,7 +2,6 @@ c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\dx2d_2204.pch
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\vc143.pdb
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\vc143.idb
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\framework.obj
-c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\camera.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\rectcollider.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\linecollider.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\collider.obj
@@ -19,10 +18,10 @@ c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\jps.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\heap.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\dnode.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\dijkstra.obj
+c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\bsproom.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\bspnode.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\bsp.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\astar.obj
-c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\animobject.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\gamemanager.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\xml.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\utility.obj
@@ -42,6 +41,7 @@ c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\clip.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\transform.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\math.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\environment.obj
+c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\camera.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\tankscene.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\dijkstrascene.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\bspscene.obj
@@ -54,6 +54,7 @@ c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\progressbar.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\effectmanager.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\effect.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\button.obj
+c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\animobject.obj
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\imguifiledialog.obj
 c:\users\sbauser\desktop\projects\bsp\x64\debug\pixeleffect.cso
 c:\users\sbauser\desktop\projects\bsp\x64\debug\pixelinstancing.cso
@@ -70,11 +71,11 @@ c:\users\sbauser\desktop\projects\bsp\x64\debug\vertexcollider.cso
 c:\users\sbauser\desktop\projects\bsp\x64\debug\vertexcolor.cso
 c:\users\sbauser\desktop\projects\bsp\x64\debug\vertexinstancing.cso
 c:\users\sbauser\desktop\projects\bsp\x64\debug\vertexuv.cso
-c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\dx2d_2204.ilk
-c:\users\sbauser\desktop\projects\bsp\x64\debug\dx2d_2204.exe
-c:\users\sbauser\desktop\projects\bsp\x64\debug\dx2d_2204.pdb
 c:\users\sbauser\desktop\projects\bsp\x64\debug\dx2d_2204.lib
 c:\users\sbauser\desktop\projects\bsp\x64\debug\dx2d_2204.exp
+c:\users\sbauser\desktop\projects\bsp\x64\debug\dx2d_2204.exe
+c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\dx2d_2204.ilk
+c:\users\sbauser\desktop\projects\bsp\x64\debug\dx2d_2204.pdb
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\dx2d_2204.res
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\dx2d_2204.tlog\cl.command.1.tlog
 c:\users\sbauser\desktop\projects\bsp\dx2d_2204\x64\debug\dx2d_2204.tlog\cl.read.1.tlog
